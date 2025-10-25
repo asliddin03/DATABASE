@@ -9,7 +9,7 @@ CREATE TABLE publishing_house
 (
 	publishing_house_id SERIAL PRIMARY KEY,
 	name VARCHAR(100) NOT NULL,
-	city VARCHAR(50) NOT NULL
+	city VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE book
@@ -49,18 +49,17 @@ CREATE TABLE issuance
 (
 	card_number INTEGER REFERENCES public.reader(card_number),
 	inventory_number INTEGER REFERENCES public.book_instance(inventory_number),
-	issue_datetime TIMESTAMP NOT NULL,
+	issue_datetime TIMESTAMP(0) NOT NULL,
 	expected_return_date DATE NOT NULL,
-    actual_return_date DATE,
+    	actual_return_date DATE,
 	PRIMARY KEY (card_number, inventory_number)
 );
 
 CREATE TABLE booking
 (
-	 booking_id SERIAL,
+	 booking_id SERIAL PRIMARY KEY,
 	 card_number INTEGER REFERENCES public.reader(card_number),
 	 book_id INTEGER NOT NULL REFERENCES public.book(book_id),
 	 min_condition_level book_condition NOT NULL,
-	 booking_datetime TIMESTAMP NOT NULL,
-	 PRIMARY KEY (booking_id, card_number)
+	 booking_datetime TIMESTAMP(0) NOT NULL
 );
