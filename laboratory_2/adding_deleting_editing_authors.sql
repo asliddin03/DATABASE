@@ -10,34 +10,33 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Функция для удаления автора
-CREATE OR REPLACE FUNCTION delete_author(p_author_id int)
-	RETURNS TABLE(deleted_author_id int) AS $$
+CREATE OR REPLACE FUNCTION delete_author(p_author_id int) RETURNS void AS $$
 BEGIN
-	RETURN QUERY
 	DELETE FROM author
-	WHERE author_id = p_author_id
-	RETURNING author.author_id;
+	WHERE author_id = p_author_id;
 END;
-$$ LANGUAGE plpgsql
+$$ LANGUAGE plpgsql;
 
-SELECT * FROM delete_author(3);
+SELECT * FROM delete_author(5);
 
 -- Функция для редактирования автора
 CREATE OR REPLACE FUNCTION update_author(
-	p_author_id int, 
-	p_last_name varchar(50), 
-	p_first_name varchar(50)
+    p_author_id int, 
+    p_last_name varchar DEFAULT NULL, 
+    p_first_name varchar DEFAULT NULL
 )
-RETURNS TABLE(updated_author_id int) AS $$
+RETURNS void AS $$
 BEGIN
-	RETURN QUERY
-	UPDATE author
-	SET
-		last_name = p_last_name,
-        first_name = p_first_name
-	WHERE author_id = p_author_id
-	RETURNING author.author_id;
+    UPDATE author
+    SET
+        last_name = COALESCE(p_last_name, last_name),
+        first_name = COALESCE(p_first_name, first_name)
+    WHERE author_id = p_author_id;
 END;
-$$ LANGUAGE plpgsql
+$$ LANGUAGE plpgsql;
 
-SELECT * FROM update_author(1, 'Толстой', 'Лев Николаевич');
+SELECT update_author(1, 'НоваяФамилия', NULL); 
+SELECT update_author(1, NULL, 'НовоеИмя');
+SELECT update_author(1, 'НоваяФамилия', 'НовоеИмя');
+SELECT update_author(1, NULL, NULL);
+SELECT update_author(1, 'Толстой', 'Лев Николаевич');
