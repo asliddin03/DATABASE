@@ -9,6 +9,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+SELECT * FROM add_author('Толстой', 'Лев');
+SELECT * FROM add_author('Достоевский', 'Фёдор');
+SELECT * FROM add_author('Пушкин', 'Александр');
+SELECT * FROM add_author('Гоголь', 'Николай');
+
 -- Функция для удаления автора
 CREATE OR REPLACE FUNCTION delete_author(p_author_id int) RETURNS void AS $$
 BEGIN
@@ -17,7 +22,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT * FROM delete_author(5);
+SELECT * FROM delete_author(3);
 
 -- Функция для редактирования автора
 CREATE OR REPLACE FUNCTION update_author(

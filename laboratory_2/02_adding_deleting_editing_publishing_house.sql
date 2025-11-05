@@ -1,6 +1,6 @@
 -- Функция для добавления издательства
 CREATE OR REPLACE FUNCTION add_publishing_house(p_name varchar(100), p_city varchar(100))
-RETURNS TABLE(publishing_house_id int) AS $$
+    RETURNS TABLE(publishing_house_id int) AS $$
 BEGIN
 	RETURN QUERY
 	INSERT INTO publishing_house(name, city)
