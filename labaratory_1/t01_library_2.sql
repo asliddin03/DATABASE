@@ -47,12 +47,12 @@ CREATE TABLE book_instance
 
 CREATE TABLE issuance
 (
-    issue_id SERIAL PRIMARY KEY,
     card_number INTEGER NOT NULL REFERENCES reader(card_number),
     inventory_number INTEGER NOT NULL REFERENCES book_instance(inventory_number),
-	issue_datetime TIMESTAMP(0) NOT NULL,
-	expected_return_date DATE NOT NULL,
-    actual_return_date DATE
+    issue_datetime TIMESTAMP(0) NOT NULL,
+    expected_return_date DATE NOT NULL,
+    actual_return_date DATE,
+    PRIMARY KEY (card_number, inventory_number)
 );
 
 CREATE TABLE booking
