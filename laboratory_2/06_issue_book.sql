@@ -45,4 +45,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT * FROM issue_book(1001, 1);
+SELECT * FROM issue_book(1001, 2);

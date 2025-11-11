@@ -50,4 +50,4 @@ END IF;
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT * FROM return_book(1001, 6)
+SELECT * FROM return_book(1001, 1)
